@@ -301,7 +301,8 @@ void register_position(const std::function<void(const PositionArgs&)>& handler) 
             while (!reader.finished()) {
                 reader.skip_whitespace();
                 std::string_view remainder = reader.peek_remainder();
-                if (remainder.substr(0, 5) == "moves") {
+                if (   remainder.size() >= 5
+                    && remainder.substr(0, 5) == "moves") {
                     break;
                 }
                 fen_stream << reader.read_word() << ' ';
@@ -704,6 +705,9 @@ std::optional<double> ArgReader::try_read_float() {
 }
 
 std::string_view ArgReader::read_until(const std::function<bool(char)>& pred) {
+    if (finished()) {
+        return "";
+    }
     size_t start_pos = m_pos;
     while (m_pos < m_arg_str.size() && !pred(m_arg_str[m_pos])) {
         ++m_pos;
@@ -712,6 +716,10 @@ std::string_view ArgReader::read_until(const std::function<bool(char)>& pred) {
 }
 
 std::string_view ArgReader::read_while(const std::function<bool(char)>& pred) {
+    if (finished()) {
+        return "";
+    }
+
     size_t start_pos = m_pos;
     while (m_pos < m_arg_str.size() && pred(m_arg_str[m_pos])) {
         ++m_pos;
