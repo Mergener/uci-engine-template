@@ -1,0 +1,18 @@
+# Build directories
+build/*
+builds/*
+cmake-build-*
+bin/*
+obj/*
+
+# Binaries
+*.o
+*.exe
+*.dll
+*.so
+*.a
+
+# IDE generated files
+.vscode
+.idea
+.vs
