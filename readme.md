@@ -1,3 +1,6 @@
+# Important
+This is still WIP! Not guaranteed to work yet.
+
 ## About
 
 This consists in a simple template for a UCI chess engine that includes 
